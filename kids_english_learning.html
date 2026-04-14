@@ -1,0 +1,994 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Learn English! | تعلم الإنجليزية!</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;600;700;800&family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root {
+  --green: #2ecc71; --green-dark: #27ae60; --green-light: #d5f5e3;
+  --blue: #3498db; --blue-light: #ebf5fb; --blue-dark: #2980b9;
+  --yellow: #f39c12; --yellow-light: #fef9e7;
+  --red: #e74c3c; --red-light: #fdedec;
+  --purple: #9b59b6; --purple-light: #f4ecf7;
+  --ivory: #fffdf4; --sky: #eaf6ff;
+  --text-dark: #2c3e50; --text-mid: #5d6d7e;
+  --radius: 16px; --shadow: 0 4px 20px rgba(0,0,0,0.08);
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'Nunito', 'Cairo', sans-serif; background: #f0f8ff; color: var(--text-dark); }
+.arabic { font-family: 'Cairo', sans-serif; direction: rtl; text-align: right; }
+
+/* HEADER */
+.site-header { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 20px 0; text-align: center; position: relative; overflow: hidden; }
+.site-header::before { content: ''; position: absolute; top:-30px; left:-30px; width:200px; height:200px; background: rgba(255,255,255,0.05); border-radius:50%; }
+.site-header::after { content: ''; position: absolute; bottom:-40px; right:-20px; width:160px; height:160px; background: rgba(255,255,255,0.05); border-radius:50%; }
+.header-title-en { font-family: 'Fredoka One', cursive; font-size: 2.8rem; color: #fff; letter-spacing: 2px; text-shadow: 2px 3px 0 rgba(0,0,0,0.2); }
+.header-title-ar { font-family: 'Cairo', sans-serif; font-size: 2rem; color: #ffeaa7; font-weight: 700; }
+.header-sub { color: rgba(255,255,255,0.85); font-size: 1rem; margin-top: 6px; }
+
+/* NAV TABS */
+.nav-wrap { background: #fff; box-shadow: 0 2px 10px rgba(0,0,0,0.1); position: sticky; top: 0; z-index: 100; }
+.nav-tabs-custom { display: flex; flex-wrap: wrap; gap: 4px; padding: 10px 16px; justify-content: center; border: none; }
+.nav-tab-btn { border: none; background: #f0f3f9; color: var(--text-mid); padding: 8px 16px; border-radius: 50px; font-family: 'Nunito', 'Cairo', sans-serif; font-size: 0.85rem; font-weight: 700; cursor: pointer; transition: all 0.2s; white-space: nowrap; }
+.nav-tab-btn:hover { background: var(--green-light); color: var(--green-dark); }
+.nav-tab-btn.active { background: var(--green); color: #fff; box-shadow: 0 3px 10px rgba(46,204,113,0.4); }
+
+/* SECTIONS */
+.section { display: none; padding: 24px 16px 40px; max-width: 1200px; margin: 0 auto; }
+.section.active { display: block; }
+
+/* BILINGUAL COLUMNS */
+.bilingual-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 20px; }
+@media(max-width:600px){ .bilingual-row { grid-template-columns: 1fr; } }
+.col-en { background: var(--ivory); border-radius: var(--radius); padding: 18px; border: 2px solid #e8e0c0; }
+.col-ar { background: var(--sky); border-radius: var(--radius); padding: 18px; border: 2px solid #b8d8f0; direction: rtl; }
+.lang-badge { display: inline-block; font-size: 0.7rem; font-weight: 800; padding: 2px 10px; border-radius: 50px; margin-bottom: 10px; text-transform: uppercase; letter-spacing: 1px; }
+.badge-en { background: var(--yellow-light); color: #c0720a; border: 1.5px solid #f39c12; }
+.badge-ar { background: var(--blue-light); color: #1a6fa8; border: 1.5px solid #3498db; font-family: 'Cairo', sans-serif; }
+
+/* CARDS */
+.lesson-card { background: #fff; border-radius: var(--radius); padding: 20px; box-shadow: var(--shadow); margin-bottom: 20px; border-top: 4px solid var(--green); }
+.lesson-title { font-family: 'Fredoka One', cursive; font-size: 1.4rem; color: var(--green-dark); margin-bottom: 4px; }
+.lesson-title-ar { font-family: 'Cairo', sans-serif; font-size: 1.1rem; color: var(--blue-dark); font-weight: 700; direction: rtl; }
+
+/* VOCAB GRID */
+.vocab-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px,1fr)); gap: 12px; margin: 16px 0; }
+.vocab-card { background: #fff; border-radius: 12px; padding: 12px; text-align: center; box-shadow: 0 2px 8px rgba(0,0,0,0.06); border: 2px solid #e0e0e0; transition: transform 0.2s, border-color 0.2s; cursor: default; }
+.vocab-card:hover { transform: translateY(-3px); border-color: var(--green); }
+.vocab-emoji { font-size: 2rem; display: block; margin-bottom: 6px; }
+.vocab-en { font-weight: 800; font-size: 0.9rem; color: var(--text-dark); display: block; }
+.vocab-ar { font-family: 'Cairo', sans-serif; font-size: 0.85rem; color: var(--blue-dark); font-weight: 600; direction: rtl; display: block; margin-top: 2px; }
+
+/* GRAMMAR BOX */
+.grammar-box { background: var(--green-light); border-left: 5px solid var(--green); border-radius: 12px; padding: 16px 20px; margin: 16px 0; }
+.grammar-box .arabic { background: var(--blue-light); border-right: 5px solid var(--blue); border-left: none; border-radius: 12px; padding: 12px 16px; margin-top: 10px; }
+.grammar-example { background: #fff; border-radius: 8px; padding: 8px 14px; margin: 6px 0; font-size: 0.9rem; border: 1.5px solid #c8f0da; }
+.answer { color: var(--green-dark); font-weight: 800; }
+
+/* FILL IN BLANKS */
+.exercise { background: #fff; border-radius: var(--radius); padding: 20px; margin: 16px 0; box-shadow: var(--shadow); }
+.exercise-title { font-family: 'Fredoka One', cursive; color: var(--purple); font-size: 1.1rem; margin-bottom: 14px; }
+.blank-input { border: none; border-bottom: 2.5px solid var(--green); background: transparent; font-family: 'Nunito', sans-serif; font-size: 0.95rem; width: 100px; text-align: center; outline: none; color: var(--text-dark); font-weight: 700; }
+.blank-input.correct { border-bottom-color: var(--green); background: var(--green-light); border-radius: 4px; padding: 0 4px; }
+.blank-input.wrong { border-bottom-color: var(--red); background: var(--red-light); border-radius: 4px; padding: 0 4px; }
+.check-btn { background: var(--green); color: #fff; border: none; border-radius: 50px; padding: 8px 22px; font-family: 'Nunito', sans-serif; font-weight: 800; cursor: pointer; margin-top: 12px; transition: background 0.2s; }
+.check-btn:hover { background: var(--green-dark); }
+.answer-key { font-size: 0.82rem; color: var(--text-mid); margin-top: 8px; }
+
+/* DICTIONARY */
+.search-wrap { position: relative; margin-bottom: 20px; }
+.dict-search { width: 100%; padding: 14px 20px 14px 48px; border: 2.5px solid var(--green); border-radius: 50px; font-family: 'Nunito', sans-serif; font-size: 1rem; outline: none; transition: box-shadow 0.2s; }
+.dict-search:focus { box-shadow: 0 0 0 4px rgba(46,204,113,0.15); }
+.search-icon { position: absolute; left: 16px; top: 50%; transform: translateY(-50%); font-size: 1.2rem; }
+.dict-card { background: #fff; border-radius: var(--radius); padding: 18px; box-shadow: var(--shadow); margin-bottom: 12px; border-left: 4px solid var(--green); display: none; }
+.dict-card.visible { display: block; }
+.dict-word { font-family: 'Fredoka One', cursive; font-size: 1.4rem; color: var(--green-dark); }
+.dict-meaning-en { color: var(--text-mid); font-size: 0.9rem; margin: 4px 0; }
+.dict-meaning-ar { font-family: 'Cairo', sans-serif; direction: rtl; color: var(--blue-dark); font-size: 1rem; font-weight: 600; }
+.dict-example { background: var(--green-light); border-radius: 8px; padding: 8px 12px; font-style: italic; font-size: 0.88rem; margin: 8px 0; }
+.dict-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
+.dict-tag { font-size: 0.75rem; padding: 3px 10px; border-radius: 50px; font-weight: 700; }
+.tag-syn { background: var(--green-light); color: var(--green-dark); }
+.tag-ant { background: var(--red-light); color: #c0392b; }
+.tag-label { font-size: 0.7rem; color: var(--text-mid); font-weight: 700; margin-top: 6px; margin-bottom: 2px; }
+
+/* PREFIX/SUFFIX TABLE */
+.affix-search { width: 100%; padding: 12px 18px; border: 2.5px solid var(--purple); border-radius: 50px; font-family: 'Nunito', sans-serif; font-size: 0.95rem; outline: none; margin-bottom: 16px; }
+.affix-table { width: 100%; border-collapse: separate; border-spacing: 0 6px; }
+.affix-table th { background: var(--purple); color: #fff; padding: 10px 14px; font-weight: 700; font-size: 0.85rem; }
+.affix-table th:first-child { border-radius: 10px 0 0 10px; }
+.affix-table th:last-child { border-radius: 0 10px 10px 0; }
+.affix-row { background: #fff; box-shadow: 0 2px 6px rgba(0,0,0,0.05); transition: transform 0.15s; }
+.affix-row:hover { transform: translateX(4px); }
+.affix-row td { padding: 10px 14px; font-size: 0.88rem; }
+.affix-row td:first-child { border-radius: 10px 0 0 10px; font-weight: 800; color: var(--purple); font-size: 1rem; }
+.affix-row td:last-child { border-radius: 0 10px 10px 0; }
+.affix-ar { font-family: 'Cairo', sans-serif; direction: rtl; color: var(--blue-dark); font-weight: 600; }
+.hidden-row { display: none; }
+
+/* PREREQ */
+.prereq-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px,1fr)); gap: 16px; margin: 16px 0; }
+.prereq-card { background: #fff; border-radius: var(--radius); padding: 18px; box-shadow: var(--shadow); border-top: 4px solid var(--blue); }
+.prereq-card.grammar { border-top-color: var(--green); }
+.prereq-card.vocab { border-top-color: var(--yellow); }
+.prereq-card.skills { border-top-color: var(--purple); }
+.prereq-title { font-weight: 800; font-size: 1rem; color: var(--text-dark); margin-bottom: 4px; display: flex; align-items: center; gap: 8px; }
+.prereq-title-ar { font-family: 'Cairo', sans-serif; direction: rtl; font-size: 0.9rem; color: var(--blue-dark); font-weight: 600; margin-bottom: 10px; }
+.prereq-list { list-style: none; padding: 0; }
+.prereq-list li { padding: 4px 0; font-size: 0.88rem; border-bottom: 1px dashed #eee; display: flex; align-items: start; gap: 6px; }
+.prereq-list li::before { content: '✓'; color: var(--green); font-weight: 900; flex-shrink: 0; }
+.note-box { background: var(--yellow-light); border: 2px dashed var(--yellow); border-radius: 12px; padding: 12px 16px; margin-top: 10px; font-size: 0.85rem; }
+.note-box .arabic { background: transparent; font-size: 0.85rem; border: none; padding: 0; margin-top: 4px; }
+
+/* QUIZ */
+.quiz-header { text-align: center; padding: 20px 0; }
+.quiz-progress { background: #e0e0e0; border-radius: 50px; height: 10px; margin: 12px 0; }
+.quiz-progress-bar { background: linear-gradient(90deg, var(--green), var(--blue)); height: 100%; border-radius: 50px; transition: width 0.4s; }
+.q-card { background: #fff; border-radius: var(--radius); padding: 22px; box-shadow: var(--shadow); margin-bottom: 18px; border: 2px solid #e8e8e8; transition: border-color 0.2s; }
+.q-card:hover { border-color: var(--green); }
+.q-num { font-size: 0.75rem; font-weight: 800; color: var(--text-mid); background: var(--green-light); padding: 2px 10px; border-radius: 50px; display: inline-block; margin-bottom: 8px; }
+.q-text { font-weight: 700; font-size: 0.95rem; margin-bottom: 14px; line-height: 1.5; }
+.q-ar { font-family: 'Cairo', sans-serif; direction: rtl; font-size: 0.85rem; color: var(--blue-dark); font-weight: 600; margin-bottom: 10px; }
+.options { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+@media(max-width:500px){ .options { grid-template-columns: 1fr; } }
+.option-btn { background: #f8f9fa; border: 2px solid #e0e0e0; border-radius: 12px; padding: 10px 14px; font-family: 'Nunito', sans-serif; font-size: 0.9rem; cursor: pointer; transition: all 0.15s; text-align: left; font-weight: 600; }
+.option-btn:hover:not(:disabled) { background: var(--green-light); border-color: var(--green); }
+.option-btn.selected { background: var(--blue-light); border-color: var(--blue); color: var(--blue-dark); }
+.option-btn.correct { background: var(--green-light); border-color: var(--green); color: var(--green-dark); }
+.option-btn.wrong { background: var(--red-light); border-color: var(--red); color: #c0392b; }
+.option-btn:disabled { cursor: default; }
+.submit-quiz-btn { background: linear-gradient(135deg, var(--green), var(--blue)); color: #fff; border: none; border-radius: 50px; padding: 14px 40px; font-family: 'Fredoka One', cursive; font-size: 1.2rem; cursor: pointer; display: block; margin: 20px auto; box-shadow: 0 4px 15px rgba(46,204,113,0.3); transition: transform 0.2s; }
+.submit-quiz-btn:hover { transform: translateY(-2px); }
+.quiz-result { text-align: center; padding: 30px 20px; background: #fff; border-radius: var(--radius); box-shadow: var(--shadow); display: none; }
+.result-score { font-family: 'Fredoka One', cursive; font-size: 4rem; color: var(--green-dark); }
+.result-pct { font-size: 1.4rem; color: var(--text-mid); }
+.result-msg { font-size: 1.1rem; font-weight: 700; margin: 10px 0; }
+.result-msg-ar { font-family: 'Cairo', sans-serif; direction: rtl; font-size: 1rem; color: var(--blue-dark); font-weight: 600; }
+.retry-btn { background: var(--purple); color: #fff; border: none; border-radius: 50px; padding: 12px 30px; font-family: 'Nunito', sans-serif; font-weight: 800; font-size: 1rem; cursor: pointer; margin-top: 16px; transition: background 0.2s; }
+.retry-btn:hover { background: #8e44ad; }
+
+/* CHALLENGE */
+.challenge-card { background: #fff; border-radius: var(--radius); padding: 20px; margin-bottom: 16px; box-shadow: var(--shadow); border: 2px dashed var(--purple); position: relative; overflow: hidden; }
+.challenge-card::before { content: '🧠'; position: absolute; top: 12px; right: 14px; font-size: 1.4rem; }
+.challenge-num { font-size: 0.72rem; font-weight: 800; background: var(--purple-light); color: var(--purple); padding: 2px 10px; border-radius: 50px; display: inline-block; margin-bottom: 8px; }
+.challenge-q { font-weight: 700; font-size: 0.95rem; margin-bottom: 8px; padding-right: 30px; }
+.challenge-ar { font-family: 'Cairo', sans-serif; direction: rtl; font-size: 0.85rem; color: var(--blue-dark); font-weight: 600; margin-bottom: 12px; }
+.reveal-btn { background: var(--purple-light); border: 1.5px solid var(--purple); color: var(--purple); border-radius: 50px; padding: 6px 18px; font-family: 'Nunito', sans-serif; font-size: 0.85rem; font-weight: 800; cursor: pointer; transition: all 0.2s; }
+.reveal-btn:hover { background: var(--purple); color: #fff; }
+.challenge-answer { display: none; background: var(--purple-light); border-radius: 10px; padding: 12px 16px; margin-top: 12px; font-size: 0.9rem; border-left: 4px solid var(--purple); }
+.challenge-answer.show { display: block; }
+.challenge-answer-ar { font-family: 'Cairo', sans-serif; direction: rtl; font-size: 0.88rem; color: var(--blue-dark); margin-top: 6px; font-weight: 600; }
+
+/* SECTION HEADING */
+.section-heading { font-family: 'Fredoka One', cursive; font-size: 1.8rem; color: var(--text-dark); margin-bottom: 4px; }
+.section-heading-ar { font-family: 'Cairo', sans-serif; direction: rtl; font-size: 1.3rem; color: var(--blue-dark); font-weight: 700; margin-bottom: 16px; }
+.unit-badge { display: inline-block; background: var(--green); color: #fff; border-radius: 50px; padding: 4px 14px; font-size: 0.8rem; font-weight: 800; margin-bottom: 8px; }
+
+/* STARS */
+.star-wrap { display: flex; justify-content: center; gap: 4px; margin: 10px 0; }
+.star { font-size: 2rem; }
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 8px; }
+::-webkit-scrollbar-track { background: #f0f0f0; }
+::-webkit-scrollbar-thumb { background: var(--green); border-radius: 10px; }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="site-header">
+  <div class="header-title-en">🌟 Fun English Learning!</div>
+  <div class="header-title-ar">تعلم الإنجليزية بطريقة ممتعة!</div>
+  <div class="header-sub">Units 5, 6 & 8 · للأطفال | For Kids</div>
+</header>
+
+<!-- NAV -->
+<div class="nav-wrap">
+  <div class="nav-tabs-custom" id="mainNav">
+    <button class="nav-tab-btn active" onclick="showSection('vocab')">📚 Vocabulary | المفردات</button>
+    <button class="nav-tab-btn" onclick="showSection('grammar')">✏️ Grammar | القواعد</button>
+    <button class="nav-tab-btn" onclick="showSection('exercises')">📝 Exercises | تمارين</button>
+    <button class="nav-tab-btn" onclick="showSection('dictionary')">🔍 Dictionary | القاموس</button>
+    <button class="nav-tab-btn" onclick="showSection('affixes')">🔤 Word Parts | أجزاء الكلمة</button>
+    <button class="nav-tab-btn" onclick="showSection('prereqs')">⭐ Must Know | يجب معرفته</button>
+    <button class="nav-tab-btn" onclick="showSection('quiz')">🎯 Quiz | اختبار</button>
+    <button class="nav-tab-btn" onclick="showSection('challenge')">🧠 Challenge | تحدي</button>
+  </div>
+</div>
+
+<!-- ====== VOCABULARY ====== -->
+<div class="section active" id="vocab">
+  <div class="section-heading">📚 Vocabulary</div>
+  <div class="section-heading-ar">المفردات - الوحدات 5 و 6 و 8</div>
+
+  <!-- Unit 5 -->
+  <div class="lesson-card">
+    <div class="unit-badge">Unit 5</div>
+    <div class="lesson-title">🏙️ Places in Town</div>
+    <div class="lesson-title-ar">الأماكن في المدينة</div>
+    <div class="bilingual-row" style="margin-top:14px;">
+      <div class="col-en">
+        <span class="lang-badge badge-en">English</span>
+        <p style="font-size:0.88rem;color:var(--text-mid);">These are places you can find in a town or city.</p>
+      </div>
+      <div class="col-ar arabic">
+        <span class="lang-badge badge-ar">العربية</span>
+        <p style="font-size:0.9rem;color:var(--text-mid);">هذه هي الأماكن التي يمكن إيجادها في مدينة أو بلدة.</p>
+      </div>
+    </div>
+    <div class="vocab-grid">
+      <div class="vocab-card"><span class="vocab-emoji">🏥</span><span class="vocab-en">hospital</span><span class="vocab-ar">مستشفى</span></div>
+      <div class="vocab-card"><span class="vocab-emoji">🏨</span><span class="vocab-en">hotel</span><span class="vocab-ar">فندق</span></div>
+      <div class="vocab-card"><span class="vocab-emoji">🛒</span><span class="vocab-en">supermarket</span><span class="vocab-ar">سوبرماركت</span></div>
+      <div class="vocab-card"><span class="vocab-emoji">🧸</span><span class="vocab-en">toy shop</span><span class="vocab-ar">محل ألعاب</span></div>
+      <div class="vocab-card"><span class="vocab-emoji">🏫</span><span class="vocab-en">school</span><span class="vocab-ar">مدرسة</span></div>
+      <div class="vocab-card"><span class="vocab-emoji">🚓</span><span class="vocab-en">police station</span><span class="vocab-ar">مركز الشرطة</span></div>
+      <div class="vocab-card"><span class="vocab-emoji">🌳</span><span class="vocab-en">park</span><span class="vocab-ar">حديقة</span></div>
+      <div class="vocab-card"><span class="vocab-emoji">🚌</span><span class="vocab-en">bus stop</span><span class="vocab-ar">موقف الحافلة</span></div>
+    </div>
+  </div>
+
+  <!-- Transport -->
+  <div class="lesson-card" style="border-top-color:var(--blue);">
+    <div class="unit-badge" style="background:var(--blue);">Unit 5</div>
+    <div class="lesson-title" style="color:var(--blue-dark);">🚗 Transport</div>
+    <div class="lesson-title-ar">وسائل النقل</div>
+    <div class="vocab-grid">
+      <div class="vocab-card"><span class="vocab-emoji">🚗</span><span class="vocab-en">car</span><span class="vocab-ar">سيارة</span></div>
+      <div class="vocab-card"><span class="vocab-emoji">🚐</span><span class="vocab-en">van</span><span class="vocab-ar">فان</span></div>
+      <div class="vocab-card"><span class="vocab-emoji">🚛</span><span class="vocab-en">lorry</span><span class="vocab-ar">شاحنة</span></div>
+      <div class="vocab-card"><span class="vocab-emoji">🏍️</span><span class="vocab-en">motorbike</span><span class="vocab-ar">دراجة نارية</span></div>
+      <div class="vocab-card"><span class="vocab-emoji">🚆</span><span class="vocab-en">train</span><span class="vocab-ar">قطار</span></div>
+      <div class="vocab-card"><span class="vocab-emoji">🚲</span><span class="vocab-en">bike</span><span class="vocab-ar">دراجة</span></div>
+      <div class="vocab-card"><span class="vocab-emoji">🚋</span><span class="vocab-en">tram</span><span class="vocab-ar">ترام</span></div>
+      <div class="vocab-card"><span class="vocab-emoji">🚇</span><span class="vocab-en">metro</span><span class="vocab-ar">مترو</span></div>
+      <div class="vocab-card"><span class="vocab-emoji">🚠</span><span class="vocab-en">chair lift</span><span class="vocab-ar">كرسي متحرك هوائي</span></div>
+      <div class="vocab-card"><span class="vocab-emoji">🚕</span><span class="vocab-en">taxi</span><span class="vocab-ar">تاكسي</span></div>
+    </div>
+  </div>
+
+  <!-- Prepositions -->
+  <div class="lesson-card" style="border-top-color:var(--yellow);">
+    <div class="unit-badge" style="background:var(--yellow);">Unit 5</div>
+    <div class="lesson-title" style="color:#c0720a;">📍 Prepositions of Place</div>
+    <div class="lesson-title-ar">حروف الجر للمكان</div>
+    <div class="vocab-grid">
+      <div class="vocab-card"><span class="vocab-emoji">↙️</span><span class="vocab-en">in front of</span><span class="vocab-ar">أمام</span></div>
+      <div class="vocab-card"><span class="vocab-emoji">↔️</span><span class="vocab-en">next to</span><span class="vocab-ar">بجانب</span></div>
+      <div class="vocab-card"><span class="vocab-emoji">↗️</span><span class="vocab-en">behind</span><span class="vocab-ar">خلف</span></div>
+      <div class="vocab-card"><span class="vocab-emoji">↕️</span><span class="vocab-en">between</span><span class="vocab-ar">بين</span></div>
+    </div>
+  </div>
+
+  <!-- Unit 6 -->
+  <div class="lesson-card" style="border-top-color:#e74c3c;">
+    <div class="unit-badge" style="background:#e74c3c;">Unit 6</div>
+    <div class="lesson-title" style="color:#c0392b;">🏸 Sports & Games</div>
+    <div class="lesson-title-ar">الرياضة والألعاب</div>
+    <div class="vocab-grid">
+      <div class="vocab-card"><span class="vocab-emoji">🏸</span><span class="vocab-en">play badminton</span><span class="vocab-ar">لعب الريشة الطائرة</span></div>
+      <div class="vocab-card"><span class="vocab-emoji">🏒</span><span class="vocab-en">play ice hockey</span><span class="vocab-ar">لعب هوكي الجليد</span></div>
+      <div class="vocab-card"><span class="vocab-emoji">🏓</span><span class="vocab-en">play table tennis</span><span class="vocab-ar">لعب تنس الطاولة</span></div>
+      <div class="vocab-card"><span class="vocab-emoji">🥏</span><span class="vocab-en">play Frisbee</span><span class="vocab-ar">لعب الفريسبي</span></div>
+      <div class="vocab-card"><span class="vocab-emoji">🏃</span><span class="vocab-en">play tag</span><span class="vocab-ar">لعبة المطاردة</span></div>
+      <div class="vocab-card"><span class="vocab-emoji">🙈</span><span class="vocab-en">play hide and seek</span><span class="vocab-ar">لعبة الاختباء</span></div>
+      <div class="vocab-card"><span class="vocab-emoji">♟️</span><span class="vocab-en">play chess</span><span class="vocab-ar">لعب الشطرنج</span></div>
+      <div class="vocab-card"><span class="vocab-emoji">🁣</span><span class="vocab-en">play dominoes</span><span class="vocab-ar">لعب الدومينو</span></div>
+    </div>
+  </div>
+
+  <!-- Free time -->
+  <div class="lesson-card" style="border-top-color:#9b59b6;">
+    <div class="unit-badge" style="background:#9b59b6;">Unit 6</div>
+    <div class="lesson-title" style="color:#7d3c98;">🎨 Free Time Activities</div>
+    <div class="lesson-title-ar">أنشطة وقت الفراغ</div>
+    <div class="vocab-grid">
+      <div class="vocab-card"><span class="vocab-emoji">🎵</span><span class="vocab-en">listen to music</span><span class="vocab-ar">الاستماع للموسيقى</span></div>
+      <div class="vocab-card"><span class="vocab-emoji">📺</span><span class="vocab-en">watch TV</span><span class="vocab-ar">مشاهدة التلفاز</span></div>
+      <div class="vocab-card"><span class="vocab-emoji">👫</span><span class="vocab-en">play with friends</span><span class="vocab-ar">اللعب مع الأصدقاء</span></div>
+      <div class="vocab-card"><span class="vocab-emoji">📖</span><span class="vocab-en">read comics</span><span class="vocab-ar">قراءة القصص المصورة</span></div>
+      <div class="vocab-card"><span class="vocab-emoji">🥋</span><span class="vocab-en">do judo</span><span class="vocab-ar">ممارسة الجودو</span></div>
+      <div class="vocab-card"><span class="vocab-emoji">🪁</span><span class="vocab-en">fly a kite</span><span class="vocab-ar">تحليق الطائرة الورقية</span></div>
+    </div>
+  </div>
+
+  <!-- Unit 8 -->
+  <div class="lesson-card" style="border-top-color:#f39c12;">
+    <div class="unit-badge" style="background:#f39c12;">Unit 8</div>
+    <div class="lesson-title" style="color:#c0720a;">⭐ Skills & Talents</div>
+    <div class="lesson-title-ar">المهارات والمواهب</div>
+    <div class="vocab-grid">
+      <div class="vocab-card"><span class="vocab-emoji">🚲</span><span class="vocab-en">ride a bike</span><span class="vocab-ar">ركوب الدراجة</span></div>
+      <div class="vocab-card"><span class="vocab-emoji">🦘</span><span class="vocab-en">hop</span><span class="vocab-ar">القفز برجل واحدة</span></div>
+      <div class="vocab-card"><span class="vocab-emoji">🛼</span><span class="vocab-en">rollerblade</span><span class="vocab-ar">التزلج بالعجلات</span></div>
+      <div class="vocab-card"><span class="vocab-emoji">🛹</span><span class="vocab-en">skateboard</span><span class="vocab-ar">ركوب لوح التزلج</span></div>
+      <div class="vocab-card"><span class="vocab-emoji">🎳</span><span class="vocab-en">throw</span><span class="vocab-ar">الرمي</span></div>
+      <div class="vocab-card"><span class="vocab-emoji">⚽</span><span class="vocab-en">kick</span><span class="vocab-ar">الركل / الضرب</span></div>
+      <div class="vocab-card"><span class="vocab-emoji">🏀</span><span class="vocab-en">bounce</span><span class="vocab-ar">الارتداد / الارتجاج</span></div>
+      <div class="vocab-card"><span class="vocab-emoji">🪢</span><span class="vocab-en">skip</span><span class="vocab-ar">القفز بالحبل</span></div>
+      <div class="vocab-card"><span class="vocab-emoji">🧁</span><span class="vocab-en">bake cupcakes</span><span class="vocab-ar">خبز الكب كيك</span></div>
+      <div class="vocab-card"><span class="vocab-emoji">🎨</span><span class="vocab-en">paint pictures</span><span class="vocab-ar">رسم الصور</span></div>
+      <div class="vocab-card"><span class="vocab-emoji">🎹</span><span class="vocab-en">play the keyboard</span><span class="vocab-ar">عزف على لوحة المفاتيح</span></div>
+      <div class="vocab-card"><span class="vocab-emoji">🎭</span><span class="vocab-en">act</span><span class="vocab-ar">التمثيل</span></div>
+      <div class="vocab-card"><span class="vocab-emoji">🤹</span><span class="vocab-en">juggle</span><span class="vocab-ar">المهارات البهلوانية</span></div>
+      <div class="vocab-card"><span class="vocab-emoji">🤸</span><span class="vocab-en">do gymnastics</span><span class="vocab-ar">ممارسة الجمناستيك</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- ====== GRAMMAR ====== -->
+<div class="section" id="grammar">
+  <div class="section-heading">✏️ Grammar Rules</div>
+  <div class="section-heading-ar">قواعد اللغة الإنجليزية</div>
+
+  <!-- Grammar 1 -->
+  <div class="lesson-card">
+    <div class="lesson-title">1. Is there a ...? / Are there any ...?</div>
+    <div class="lesson-title-ar">هل يوجد ...؟ / هل يوجد أي ...؟</div>
+    <div class="grammar-box">
+      <p style="font-weight:700;margin-bottom:8px;">Singular (مفرد):</p>
+      <div class="grammar-example">❓ <strong>Is there a</strong> park in your street? <span class="answer">→ Yes, there is.</span> / <span style="color:var(--red)">No, there isn't.</span></div>
+      <div class="grammar-example">❓ <strong>Is there a</strong> supermarket near here? <span class="answer">→ Yes, there is!</span></div>
+      <p style="font-weight:700;margin:10px 0 8px;">Plural (جمع):</p>
+      <div class="grammar-example">❓ <strong>Are there any</strong> bus stops? <span class="answer">→ Yes, there are.</span> / <span style="color:var(--red)">No, there aren't.</span></div>
+      <div class="grammar-box arabic">
+        <p>نستخدم <strong>Is there a</strong> مع الأسماء المفردة (واحد فقط)</p>
+        <p>نستخدم <strong>Are there any</strong> مع الأسماء الجمع (أكثر من واحد)</p>
+        <p>الإجابة بالإيجاب: Yes, there is / Yes, there are</p>
+        <p>الإجابة بالنفي: No, there isn't / No, there aren't</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Grammar 2 -->
+  <div class="lesson-card">
+    <div class="lesson-title">2. Where's the ...? — Prepositions</div>
+    <div class="lesson-title-ar">أين ...؟ — حروف الجر</div>
+    <div class="grammar-box">
+      <div class="grammar-example">❓ <strong>Where's</strong> the car? <span class="answer">→ It's <strong>next to</strong> the lorry.</span></div>
+      <div class="grammar-example">❓ <strong>Where's</strong> the motorbike? <span class="answer">→ It's <strong>between</strong> the car and the van.</span></div>
+      <div class="grammar-example">❓ <strong>Where's</strong> the van? <span class="answer">→ It's <strong>in front of</strong> the car.</span></div>
+      <div class="grammar-example">❓ <strong>Where's</strong> the bike? <span class="answer">→ It's <strong>behind</strong> the bus.</span></div>
+      <div class="grammar-box arabic">
+        <p><strong>next to</strong> = بجانب</p>
+        <p><strong>between</strong> = بين (شيئين)</p>
+        <p><strong>in front of</strong> = أمام</p>
+        <p><strong>behind</strong> = خلف</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Grammar 3 -->
+  <div class="lesson-card">
+    <div class="lesson-title">3. What's he/she doing? — Present Continuous</div>
+    <div class="lesson-title-ar">ماذا يفعل هو/هي؟ — المضارع المستمر</div>
+    <div class="grammar-box">
+      <div class="grammar-example">❓ <strong>What's he doing?</strong> <span class="answer">→ He's playing chess.</span></div>
+      <div class="grammar-example">❓ <strong>What's she doing?</strong> <span class="answer">→ She's playing badminton.</span></div>
+      <div class="grammar-example">❓ <strong>What are they doing?</strong> <span class="answer">→ They're playing tag.</span></div>
+      <div class="grammar-example">❓ <strong>Is he reading comics?</strong> <span class="answer">→ Yes, he is.</span> / No, he isn't.</div>
+      <div class="grammar-box arabic">
+        <p>نستخدم المضارع المستمر للتعبير عن أفعال تحدث الآن</p>
+        <p><strong>am/is/are + verb + ing</strong></p>
+        <p>He's = He is | She's = She is | They're = They are</p>
+        <p>مثال: He is play<strong>ing</strong> → يلعب الآن</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Grammar 4 -->
+  <div class="lesson-card">
+    <div class="lesson-title">4. I like / I don't like + verb-ing</div>
+    <div class="lesson-title-ar">أنا أحب / لا أحب + فعل + ing</div>
+    <div class="grammar-box">
+      <div class="grammar-example">✅ <strong>I like</strong> skipping.</div>
+      <div class="grammar-example">❌ <strong>I don't like</strong> skateboarding.</div>
+      <div class="grammar-example">❓ <strong>Do you like</strong> hopping? <span class="answer">→ Yes, I do.</span> / No, I don't.</div>
+      <div class="grammar-example">✅ <strong>She likes</strong> bouncing. <strong>He likes</strong> bouncing, too!</div>
+      <div class="grammar-example">❓ <strong>Does he like</strong> skipping? <span class="answer">→ Yes, he does.</span> / No, he doesn't.</div>
+      <div class="grammar-box arabic">
+        <p>بعد like/likes نضع الفعل مضافاً إليه <strong>ing</strong></p>
+        <p>للجمع ولـ I: <strong>like / don't like</strong></p>
+        <p>للمفرد (he/she): <strong>likes / doesn't like</strong></p>
+        <p>السؤال مع I/you/we/they: <strong>Do you like ...?</strong></p>
+        <p>السؤال مع he/she: <strong>Does he/she like ...?</strong></p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Grammar 5 -->
+  <div class="lesson-card">
+    <div class="lesson-title">5. I'm good at + verb-ing</div>
+    <div class="lesson-title-ar">أنا جيد في + فعل + ing</div>
+    <div class="grammar-box">
+      <div class="grammar-example">✅ <strong>I'm good at</strong> painting pictures.</div>
+      <div class="grammar-example">❓ <strong>Are you good at</strong> juggling? <span class="answer">→ Yes, I am.</span> / No, I'm not.</div>
+      <div class="grammar-example">✅ <strong>He's good at</strong> rollerblading.</div>
+      <div class="grammar-example">✅ <strong>She's good at</strong> acting.</div>
+      <div class="grammar-box arabic">
+        <p>بعد <strong>good at</strong> نضع الفعل مضافاً إليه <strong>ing</strong></p>
+        <p>I'm good at = أنا جيد في</p>
+        <p>He/She is good at = هو/هي جيد/جيدة في</p>
+        <p>الإجابة بالإيجاب: Yes, I am / Yes, he does</p>
+        <p>الإجابة بالنفي: No, I'm not / No, he doesn't</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ====== EXERCISES ====== -->
+<div class="section" id="exercises">
+  <div class="section-heading">📝 Fill in the Blanks!</div>
+  <div class="section-heading-ar">أكمل الفراغات!</div>
+
+  <div class="exercise">
+    <div class="exercise-title">Exercise 1: Places in Town | الأماكن في المدينة</div>
+    <p style="font-size:0.85rem;color:var(--text-mid);margin-bottom:14px;font-style:italic;">Use: hospital, park, supermarket, bus stop, hotel, police station</p>
+
+    <p style="margin:10px 0;font-size:0.93rem;line-height:2;">
+      1. I buy food at the <input class="blank-input" data-answer="supermarket"> 🛒<br>
+      2. When I am sick, I go to the <input class="blank-input" data-answer="hospital"> 🏥<br>
+      3. Children play in the <input class="blank-input" data-answer="park"> 🌳<br>
+      4. We wait for the bus at the <input class="blank-input" data-answer="bus stop"> 🚌<br>
+      5. Tourists sleep at the <input class="blank-input" data-answer="hotel"> 🏨<br>
+      6. If there is a problem, we go to the <input class="blank-input" data-answer="police station"> 🚓
+    </p>
+    <button class="check-btn" onclick="checkExercise(this)">✓ Check Answers | تحقق</button>
+    <div class="answer-key">Answers | الإجابات: 1-supermarket, 2-hospital, 3-park, 4-bus stop, 5-hotel, 6-police station</div>
+  </div>
+
+  <div class="exercise">
+    <div class="exercise-title">Exercise 2: Prepositions | حروف الجر</div>
+    <p style="font-size:0.85rem;color:var(--text-mid);margin-bottom:14px;font-style:italic;">Use: in front of, behind, between, next to</p>
+    <p style="margin:10px 0;font-size:0.93rem;line-height:2;">
+      1. The car is <input class="blank-input" data-answer="behind"> the lorry. 🚗→🚛<br>
+      2. The motorbike is <input class="blank-input" data-answer="between"> the car and the van. 🚗🏍️🚐<br>
+      3. The van is <input class="blank-input" data-answer="in front of"> the car. 🚐🚗<br>
+      4. The bike is <input class="blank-input" data-answer="next to"> the bus stop. 🚲🚌
+    </p>
+    <button class="check-btn" onclick="checkExercise(this)">✓ Check Answers | تحقق</button>
+  </div>
+
+  <div class="exercise">
+    <div class="exercise-title">Exercise 3: Present Continuous | المضارع المستمر</div>
+    <p style="font-size:0.85rem;color:var(--text-mid);margin-bottom:14px;font-style:italic;">Fill in with the correct form of the verb (verb + ing)</p>
+    <p style="margin:10px 0;font-size:0.93rem;line-height:2;">
+      1. She is <input class="blank-input" data-answer="playing"> badminton. (play) 🏸<br>
+      2. They are <input class="blank-input" data-answer="doing"> judo. (do) 🥋<br>
+      3. He is <input class="blank-input" data-answer="riding"> a bike. (ride) 🚲<br>
+      4. I am <input class="blank-input" data-answer="watching"> TV. (watch) 📺<br>
+      5. We are <input class="blank-input" data-answer="flying"> a kite. (fly) 🪁
+    </p>
+    <button class="check-btn" onclick="checkExercise(this)">✓ Check Answers | تحقق</button>
+  </div>
+
+  <div class="exercise">
+    <div class="exercise-title">Exercise 4: Like / Don't Like | أحب / لا أحب</div>
+    <p style="font-size:0.85rem;color:var(--text-mid);margin-bottom:14px;font-style:italic;">Use: likes, doesn't like, do, does, don't</p>
+    <p style="margin:10px 0;font-size:0.93rem;line-height:2;">
+      1. She <input class="blank-input" data-answer="likes"> skipping. ✅🪢<br>
+      2. He <input class="blank-input" data-answer="doesn't like"> rollerblading. ❌🛼<br>
+      3. <input class="blank-input" data-answer="Do"> you like chess? ♟️<br>
+      4. <input class="blank-input" data-answer="Does"> she like acting? 🎭<br>
+      5. No, I <input class="blank-input" data-answer="don't"> like bouncing. ❌🏀
+    </p>
+    <button class="check-btn" onclick="checkExercise(this)">✓ Check Answers | تحقق</button>
+  </div>
+
+  <div class="exercise">
+    <div class="exercise-title">Exercise 5: Good At | جيد في</div>
+    <p style="font-size:0.85rem;color:var(--text-mid);margin-bottom:14px;font-style:italic;">Complete with: am, is, are, not</p>
+    <p style="margin:10px 0;font-size:0.93rem;line-height:2;">
+      1. I <input class="blank-input" data-answer="am"> good at painting. 🎨<br>
+      2. She <input class="blank-input" data-answer="is"> good at juggling. 🤹<br>
+      3. Are you good at gymnastics? No, I'm <input class="blank-input" data-answer="not">. 🤸<br>
+      4. They <input class="blank-input" data-answer="are"> good at playing chess. ♟️
+    </p>
+    <button class="check-btn" onclick="checkExercise(this)">✓ Check Answers | تحقق</button>
+  </div>
+</div>
+
+<!-- ====== DICTIONARY ====== -->
+<div class="section" id="dictionary">
+  <div class="section-heading">🔍 Bilingual Dictionary</div>
+  <div class="section-heading-ar">القاموس ثنائي اللغة</div>
+  <div class="search-wrap">
+    <span class="search-icon">🔍</span>
+    <input type="text" class="dict-search" id="dictSearch" placeholder="Search a word... اكتب كلمة للبحث" oninput="searchDict()">
+  </div>
+  <p style="font-size:0.85rem;color:var(--text-mid);margin-bottom:16px;">Type to search from 30+ words | اكتب للبحث في أكثر من 30 كلمة</p>
+  <div id="dictResults"></div>
+</div>
+
+<!-- ====== AFFIXES ====== -->
+<div class="section" id="affixes">
+  <div class="section-heading">🔤 Prefixes & Suffixes</div>
+  <div class="section-heading-ar">السوابق واللواحق</div>
+  <div class="bilingual-row">
+    <div class="col-en">
+      <span class="lang-badge badge-en">English</span>
+      <p style="font-size:0.88rem;">Prefixes are added at the <strong>beginning</strong> of a word. Suffixes are added at the <strong>end</strong>.</p>
+    </div>
+    <div class="col-ar arabic">
+      <span class="lang-badge badge-ar">العربية</span>
+      <p style="font-size:0.9rem;">السوابق تُضاف في <strong>بداية</strong> الكلمة. اللواحق تُضاف في <strong>نهاية</strong> الكلمة.</p>
+    </div>
+  </div>
+  <input type="text" class="affix-search" id="affixSearch" placeholder="🔍 Search prefix/suffix... ابحث عن سابقة أو لاحقة" oninput="searchAffixes()">
+
+  <h5 style="font-weight:800;color:var(--blue-dark);margin:16px 0 8px;">Prefixes | السوابق</h5>
+  <div style="overflow-x:auto;">
+  <table class="affix-table" id="prefixTable">
+    <thead><tr><th>Prefix</th><th>Meaning (English)</th><th>المعنى بالعربية</th><th>Example</th></tr></thead>
+    <tbody>
+      <tr class="affix-row"><td>un-</td><td>not / opposite</td><td class="affix-ar">غير / عكس</td><td>unhappy, unkind</td></tr>
+      <tr class="affix-row"><td>re-</td><td>again</td><td class="affix-ar">مرة أخرى</td><td>replay, redo</td></tr>
+      <tr class="affix-row"><td>pre-</td><td>before</td><td class="affix-ar">قبل</td><td>preview, prepare</td></tr>
+      <tr class="affix-row"><td>mis-</td><td>wrong / badly</td><td class="affix-ar">خطأ / بشكل سيئ</td><td>misplace, mistake</td></tr>
+      <tr class="affix-row"><td>dis-</td><td>not / opposite</td><td class="affix-ar">لا / عكس</td><td>dislike, disagree</td></tr>
+      <tr class="affix-row"><td>over-</td><td>too much</td><td class="affix-ar">أكثر من اللازم</td><td>overeat, overtime</td></tr>
+      <tr class="affix-row"><td>super-</td><td>above / beyond</td><td class="affix-ar">فوق / أعلى من</td><td>supermarket, superman</td></tr>
+      <tr class="affix-row"><td>bi-</td><td>two</td><td class="affix-ar">اثنان</td><td>bicycle, bilingual</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <h5 style="font-weight:800;color:var(--purple);margin:20px 0 8px;">Suffixes | اللواحق</h5>
+  <div style="overflow-x:auto;">
+  <table class="affix-table" id="suffixTable">
+    <thead><tr><th style="background:var(--purple);">Suffix</th><th style="background:var(--purple);">Meaning (English)</th><th style="background:var(--purple);">المعنى بالعربية</th><th style="background:var(--purple);">Example</th></tr></thead>
+    <tbody>
+      <tr class="affix-row"><td>-ing</td><td>action happening now</td><td class="affix-ar">الفعل يحدث الآن</td><td>playing, running</td></tr>
+      <tr class="affix-row"><td>-er</td><td>person who does</td><td class="affix-ar">شخص يقوم بالفعل</td><td>player, teacher</td></tr>
+      <tr class="affix-row"><td>-ful</td><td>full of</td><td class="affix-ar">مليء بـ</td><td>beautiful, careful</td></tr>
+      <tr class="affix-row"><td>-less</td><td>without</td><td class="affix-ar">بدون</td><td>careless, homeless</td></tr>
+      <tr class="affix-row"><td>-ly</td><td>in a way / how</td><td class="affix-ar">بطريقة / كيف</td><td>quickly, slowly</td></tr>
+      <tr class="affix-row"><td>-tion / -sion</td><td>the act of / state</td><td class="affix-ar">عملية / حالة</td><td>station, celebration</td></tr>
+      <tr class="affix-row"><td>-ness</td><td>state / quality</td><td class="affix-ar">الحالة / الصفة</td><td>happiness, sadness</td></tr>
+      <tr class="affix-row"><td>-able</td><td>can be done</td><td class="affix-ar">يمكن فعله</td><td>playable, lovable</td></tr>
+      <tr class="affix-row"><td>-ment</td><td>result / action</td><td class="affix-ar">نتيجة / حدث</td><td>movement, enjoyment</td></tr>
+      <tr class="affix-row"><td>-s / -es</td><td>plural (more than one)</td><td class="affix-ar">الجمع (أكثر من واحد)</td><td>parks, buses</td></tr>
+    </tbody>
+  </table>
+  </div>
+</div>
+
+<!-- ====== PREREQS ====== -->
+<div class="section" id="prereqs">
+  <div class="section-heading">⭐ What You Must Know</div>
+  <div class="section-heading-ar">ما يجب أن تعرفه قبل الاختبار</div>
+  <div class="prereq-grid">
+    <div class="prereq-card grammar">
+      <div class="prereq-title">✏️ Basic Grammar</div>
+      <div class="prereq-title-ar">القواعد الأساسية</div>
+      <ul class="prereq-list">
+        <li>Present Simple (I play, She plays)</li>
+        <li>Present Continuous (I am playing)</li>
+        <li>There is / There are</li>
+        <li>Can / Can't (ability)</li>
+        <li>Like + verb-ing</li>
+        <li>Good at + verb-ing</li>
+      </ul>
+      <div class="note-box">💡 Remember: He/She/It → add -s to the verb!<br><span class="arabic">تذكر: مع هو/هي → نضيف s للفعل!</span></div>
+    </div>
+    <div class="prereq-card vocab">
+      <div class="prereq-title">📚 Key Vocabulary</div>
+      <div class="prereq-title-ar">المفردات الأساسية</div>
+      <ul class="prereq-list">
+        <li>8 places in town (hospital, hotel...)</li>
+        <li>10 transport words (car, train...)</li>
+        <li>4 prepositions of place</li>
+        <li>8 sports and games</li>
+        <li>6 free time activities</li>
+        <li>14 skills and talents</li>
+      </ul>
+      <div class="note-box">💡 Play → Playing | Ride → Riding | Dance → Dancing<br><span class="arabic">تذكر: الفعل المنتهي بـ e نحذف الـ e ونضيف ing</span></div>
+    </div>
+    <div class="prereq-card skills">
+      <div class="prereq-title">💬 Key Phrases</div>
+      <div class="prereq-title-ar">العبارات الأساسية</div>
+      <ul class="prereq-list">
+        <li>Shall we go to the ...? / OK, Let's go!</li>
+        <li>Is there a ...? / Yes, there is.</li>
+        <li>Are there any ...? / Yes, there are.</li>
+        <li>What's he/she doing?</li>
+        <li>Do you like ...ing?</li>
+        <li>Are you good at ...ing?</li>
+        <li>Where's the ...? It's next to...</li>
+        <li>What games do you like?</li>
+      </ul>
+    </div>
+    <div class="prereq-card" style="border-top-color:#e74c3c;">
+      <div class="prereq-title">🔡 Verb Forms</div>
+      <div class="prereq-title-ar">أشكال الفعل</div>
+      <ul class="prereq-list">
+        <li>play → playing → plays</li>
+        <li>ride → riding (drop the e!)</li>
+        <li>hop → hopping (double consonant!)</li>
+        <li>skip → skipping (double consonant!)</li>
+        <li>do → doing</li>
+        <li>watch → watching</li>
+        <li>listen → listening</li>
+      </ul>
+      <div class="note-box">⚠️ Short verb + vowel + consonant → double last letter + ing<br><span class="arabic">فعل قصير + مقطع صائت + حرف صامت = ضاعف آخر حرف + ing</span></div>
+    </div>
+    <div class="prereq-card" style="border-top-color:#2ecc71;">
+      <div class="prereq-title">📝 Sentence Building</div>
+      <div class="prereq-title-ar">بناء الجمل</div>
+      <ul class="prereq-list">
+        <li>Subject + is/are + verb-ing</li>
+        <li>There + is/are + a/any + noun</li>
+        <li>Subject + like/likes + verb-ing</li>
+        <li>Subject + is/am/are + good at + verb-ing</li>
+        <li>Where + is/are + the + noun?</li>
+        <li>It's + preposition + the + noun</li>
+      </ul>
+    </div>
+    <div class="prereq-card" style="border-top-color:#9b59b6;">
+      <div class="prereq-title">✅ Punctuation Tips</div>
+      <div class="prereq-title-ar">قواعد علامات الترقيم</div>
+      <ul class="prereq-list">
+        <li>Start sentences with capital letter</li>
+        <li>End questions with ? mark</li>
+        <li>End statements with . period</li>
+        <li>Use ' in contractions (isn't, I'm)</li>
+        <li>Names always start with capitals</li>
+        <li>Days/months start with capitals</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- ====== QUIZ ====== -->
+<div class="section" id="quiz">
+  <div class="quiz-header">
+    <div class="section-heading">🎯 Big Quiz Time!</div>
+    <div class="section-heading-ar">وقت الاختبار الكبير! — 50 سؤالاً</div>
+    <div class="quiz-progress"><div class="quiz-progress-bar" id="quizProgress" style="width:0%"></div></div>
+    <p id="quizStatus" style="font-size:0.88rem;color:var(--text-mid);">Answer all 50 questions, then press Submit! | أجب على الأسئلة ثم اضغط إرسال</p>
+  </div>
+  <div id="quizQuestions"></div>
+  <button class="submit-quiz-btn" onclick="submitQuiz()">🎉 Submit Quiz | أرسل الاختبار</button>
+  <div class="quiz-result" id="quizResult">
+    <div class="star-wrap" id="resultStars"></div>
+    <div class="result-score" id="resultScore">0/50</div>
+    <div class="result-pct" id="resultPct">0%</div>
+    <div class="result-msg" id="resultMsg"></div>
+    <div class="result-msg-ar" id="resultMsgAr"></div>
+    <button class="retry-btn" onclick="resetQuiz()">🔄 Try Again | حاول مجدداً</button>
+  </div>
+</div>
+
+<!-- ====== CHALLENGE ====== -->
+<div class="section" id="challenge">
+  <div class="section-heading">🧠 Challenge Questions!</div>
+  <div class="section-heading-ar">أسئلة تحدي للأذكياء!</div>
+  <p style="color:var(--text-mid);margin-bottom:20px;">These questions make you think deeply! | هذه الأسئلة تجعلك تفكر بعمق!</p>
+  <div id="challengeCards"></div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+// ======= NAVIGATION =======
+function showSection(id) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.nav-tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  event.currentTarget.classList.add('active');
+  window.scrollTo({top: 0, behavior: 'smooth'});
+}
+
+// ======= EXERCISES =======
+function checkExercise(btn) {
+  const exercise = btn.closest('.exercise');
+  const inputs = exercise.querySelectorAll('.blank-input');
+  inputs.forEach(inp => {
+    const correct = inp.dataset.answer.trim().toLowerCase();
+    const given = inp.value.trim().toLowerCase();
+    inp.classList.remove('correct','wrong');
+    if (given === correct) inp.classList.add('correct');
+    else if (given.length > 0) inp.classList.add('wrong');
+  });
+}
+
+// ======= DICTIONARY DATA =======
+const dictData = [
+  {word:'hospital', ar:'مستشفى', en:'A place where sick or injured people are treated by doctors and nurses.', example:'I went to the hospital because I was sick.', syn:['clinic','medical centre'], ant:[]},
+  {word:'hotel', ar:'فندق', en:'A building where people pay to sleep and eat when they are away from home.', example:'We stayed at a big hotel near the sea.', syn:['inn','guesthouse'], ant:[]},
+  {word:'supermarket', ar:'سوبرماركت', en:'A large shop where you can buy food and household items.', example:'Mum buys fruit at the supermarket.', syn:['grocery store','shop'], ant:[]},
+  {word:'park', ar:'حديقة عامة', en:'An outdoor area with grass and trees where people relax and play.', example:'The children play in the park every afternoon.', syn:['garden','playground'], ant:[]},
+  {word:'school', ar:'مدرسة', en:'A place where children go to learn and study.', example:'We go to school five days a week.', syn:['academy','college'], ant:[]},
+  {word:'train', ar:'قطار', en:'A vehicle that travels on rails and carries people or goods.', example:'We took the train to visit grandmother.', syn:['rail','locomotive'], ant:[]},
+  {word:'bike', ar:'دراجة هوائية', en:'A vehicle with two wheels that you ride by pushing pedals.', example:'She rides her bike to school every day.', syn:['bicycle','cycle'], ant:[]},
+  {word:'behind', ar:'خلف', en:'At or to the back of something.', example:'The car is behind the lorry.', syn:['after','at the back of'], ant:['in front of','before']},
+  {word:'between', ar:'بين', en:'In the space that separates two things.', example:'The motorbike is between the car and the van.', syn:['in the middle of','among'], ant:['outside']},
+  {word:'next to', ar:'بجانب', en:'At the side of something; beside.', example:'The bike is next to the bus stop.', syn:['beside','alongside','adjacent to'], ant:['far from','away from']},
+  {word:'in front of', ar:'أمام', en:'Directly before something; facing it.', example:'Keiko is in front of the hotel.', syn:['before','facing'], ant:['behind','at the back of']},
+  {word:'play', ar:'يلعب', en:'To do something for fun or as a game.', example:'The children play chess in the afternoon.', syn:['participate','engage','compete'], ant:['work','rest']},
+  {word:'chess', ar:'شطرنج', en:'A board game for two players using pieces that move in specific ways.', example:'He is good at playing chess.', syn:['board game'], ant:[]},
+  {word:'badminton', ar:'ريشة طائرة', en:'A sport where players hit a shuttlecock over a net with rackets.', example:'She plays badminton every Saturday.', syn:['racket sport'], ant:[]},
+  {word:'skip', ar:'يقفز بالحبل', en:'To jump over a rope that swings under your feet and over your head.', example:'She likes skipping in the playground.', syn:['jump rope','hop'], ant:[]},
+  {word:'juggle', ar:'يبهلوان / يلقي كرات في الهواء', en:'To throw and catch several objects at the same time.', example:'The clown can juggle five balls at once.', syn:['toss','balance'], ant:[]},
+  {word:'talent', ar:'موهبة', en:'A natural ability to do something well.', example:'Dancing is her special talent.', syn:['skill','gift','ability'], ant:['weakness','disability']},
+  {word:'like', ar:'يحب / يعجبه', en:'To enjoy something or feel happy about it.', example:'I like playing table tennis.', syn:['enjoy','love','prefer'], ant:['dislike','hate']},
+  {word:'good at', ar:'جيد في / يجيد', en:'Able to do something well.', example:'He is good at rollerblading.', syn:['skilled at','talented in','great at'], ant:['bad at','poor at']},
+  {word:'lorry', ar:'شاحنة', en:'A large vehicle used for carrying heavy goods.', example:'The lorry is parked in front of the shop.', syn:['truck','freight vehicle'], ant:[]},
+  {word:'motorbike', ar:'دراجة نارية', en:'A two-wheeled vehicle with an engine.', example:'Where is the motorbike? It is behind the car.', syn:['motorcycle','moped'], ant:[]},
+  {word:'station', ar:'محطة', en:'A building where vehicles stop to pick up and drop off passengers.', example:'The bus station is next to the school.', syn:['stop','terminal','depot'], ant:[]},
+  {word:'act', ar:'يمثل', en:'To perform in a play or film.', example:'She loves to act in school plays.', syn:['perform','play a role'], ant:[]},
+  {word:'gymnastics', ar:'جمناستيك', en:'A sport involving exercises that show physical strength and balance.', example:'Are you good at doing gymnastics?', syn:['acrobatics','tumbling'], ant:[]},
+  {word:'happy', ar:'سعيد', en:'Feeling pleasure or joy.', example:'Walter is happy when he plays with friends.', syn:['joyful','glad','pleased'], ant:['sad','unhappy','miserable']},
+  {word:'sad', ar:'حزين', en:'Feeling unhappy or sorry.', example:'Meg is sad because she cannot skateboard.', syn:['unhappy','miserable','upset'], ant:['happy','joyful','cheerful']},
+  {word:'beautiful', ar:'جميل', en:'Very attractive or pleasing to look at.', example:'Rio is a beautiful city.', syn:['lovely','gorgeous','pretty'], ant:['ugly','plain']},
+  {word:'famous', ar:'مشهور', en:'Known by many people.', example:'The dragon dance is a famous dance from China.', syn:['well-known','popular','celebrated'], ant:['unknown','obscure']},
+  {word:'find', ar:'يجد / يعثر', en:'To discover or see something after looking for it.', example:"Let's find our kite!", syn:['discover','locate','spot'], ant:['lose','misplace']},
+  {word:'bounce', ar:'يرتد / يرتجز', en:'To spring back after hitting a surface.', example:'She likes bouncing on the trampoline.', syn:['spring','rebound','hop'], ant:[]}
+];
+
+function searchDict() {
+  const q = document.getElementById('dictSearch').value.toLowerCase().trim();
+  const results = document.getElementById('dictResults');
+  results.innerHTML = '';
+  if (!q) return;
+  const matches = dictData.filter(d => d.word.toLowerCase().includes(q) || d.ar.includes(q));
+  if (matches.length === 0) { results.innerHTML = '<p style="color:var(--text-mid);font-style:italic;text-align:center;padding:20px;">No results found | لا توجد نتائج</p>'; return; }
+  matches.forEach(d => {
+    const card = document.createElement('div');
+    card.className = 'dict-card visible';
+    card.innerHTML = `
+      <div class="dict-word">📖 ${d.word}</div>
+      <div class="dict-meaning-ar">🔷 ${d.ar}</div>
+      <div class="dict-meaning-en">${d.en}</div>
+      <div class="dict-example">"${d.example}"</div>
+      <div class="tag-label">Synonyms | مرادفات:</div>
+      <div class="dict-tags">${d.syn.length ? d.syn.map(s=>`<span class="dict-tag tag-syn">✓ ${s}</span>`).join('') : '<span style="font-size:0.8rem;color:#aaa">none</span>'}</div>
+      ${d.ant.length ? `<div class="tag-label">Antonyms | أضداد:</div><div class="dict-tags">${d.ant.map(a=>`<span class="dict-tag tag-ant">✗ ${a}</span>`).join('')}</div>` : ''}
+    `;
+    results.appendChild(card);
+  });
+}
+
+// ======= AFFIXES SEARCH =======
+function searchAffixes() {
+  const q = document.getElementById('affixSearch').value.toLowerCase().trim();
+  ['prefixTable','suffixTable'].forEach(tid => {
+    document.querySelectorAll(`#${tid} .affix-row`).forEach(row => {
+      row.style.display = (!q || row.textContent.toLowerCase().includes(q)) ? '' : 'none';
+    });
+  });
+}
+
+// ======= QUIZ DATA =======
+const quizData = [
+  {q:"Where do you buy food?", qar:"أين تشتري الطعام؟", opts:["hospital","supermarket","park","hotel"], ans:1},
+  {q:"What is the Arabic for 'bus stop'?", qar:"ما هي الترجمة العربية لـ bus stop؟", opts:["مستشفى","حديقة","موقف الحافلة","فندق"], ans:2},
+  {q:"Where's the car? It's ___ the lorry. (behind)", qar:"أين السيارة؟ هي ___ الشاحنة.", opts:["next to","in front of","behind","between"], ans:2},
+  {q:"Is there a park in your street? Choose the correct answer.", qar:"هل يوجد حديقة في شارعك؟ اختر الإجابة الصحيحة.", opts:["Yes, there are.","Yes, there is.","No, there isn't it.","No, there aren't."], ans:1},
+  {q:"Are there any schools here?", qar:"هل يوجد أي مدارس هنا؟", opts:["Yes, there is.","No, there isn't.","Yes, there are.","No, it isn't."], ans:2},
+  {q:"What's he doing? He ___ playing chess.", qar:"ماذا يفعل؟ هو ___ يلعب الشطرنج.", opts:["am","are","is","be"], ans:2},
+  {q:"What are they doing? They ___ playing tag.", qar:"ماذا يفعلون؟ هم ___ يلعبون لعبة المطاردة.", opts:["is","am","are","be"], ans:2},
+  {q:"She ___ badminton every Saturday.", qar:"هي ___ الريشة الطائرة كل سبت.", opts:["play","plays","playing","played"], ans:1},
+  {q:"I like ___. (skip)", qar:"أنا أحب ___. (قفز بالحبل)", opts:["skip","to skip","skipping","skips"], ans:2},
+  {q:"Does she like rollerblading? No, she ___.", qar:"هل تحب التزلج بالعجلات؟ لا، هي ___.", opts:["don't","doesn't","isn't","aren't"], ans:1},
+  {q:"I'm good at ___ pictures. (paint)", qar:"أنا جيد في ___ الصور. (رسم)", opts:["paint","paints","painted","painting"], ans:3},
+  {q:"Are you good at juggling? Yes, ___ am.", qar:"هل أنت جيد في البهلوانية؟ نعم، ___ أكون.", opts:["you","he","I","she"], ans:2},
+  {q:"Which word means 'مركز الشرطة'?", qar:"أي كلمة تعني مركز الشرطة؟", opts:["hospital","supermarket","police station","bus stop"], ans:2},
+  {q:"'Between' means:", qar:"كلمة 'between' تعني:", opts:["أمام","خلف","بجانب","بين"], ans:3},
+  {q:"Which is a preposition of place?", qar:"أي منها حرف جر للمكان؟", opts:["playing","beautiful","next to","likes"], ans:2},
+  {q:"The motorbike is ___ the car and the van.", qar:"الدراجة النارية هي ___ السيارة والفان.", opts:["behind","in front of","between","next to"], ans:2},
+  {q:"He can ___ a bike.", qar:"يستطيع ___ الدراجة.", opts:["rides","to ride","ride","riding"], ans:2},
+  {q:"Which transport travels on rails?", qar:"أي وسيلة نقل تسير على القضبان؟", opts:["car","train","motorbike","van"], ans:1},
+  {q:"'Lorry' in Arabic is:", qar:"كلمة 'lorry' بالعربية هي:", opts:["دراجة","سيارة","قطار","شاحنة"], ans:3},
+  {q:"Shall we go to the toy shop? ___", qar:"هل نذهب إلى محل الألعاب؟ ___", opts:["No, we can't.","OK, Let's go!","Yes, there is.","No, there isn't."], ans:1},
+  {q:"She is ___ to music right now.", qar:"هي ___ للموسيقى الآن.", opts:["listen","listens","listening","listened"], ans:2},
+  {q:"What's she doing? She's ___ judo.", qar:"ماذا تفعل؟ هي ___ الجودو.", opts:["do","does","did","doing"], ans:3},
+  {q:"Do you like chess? Yes, ___ do.", qar:"هل تحب الشطرنج؟ نعم، ___ أحب.", opts:["he","she","I","they"], ans:2},
+  {q:"He ___ like skateboarding.", qar:"هو ___ يحب ركوب لوح التزلج.", opts:["don't","doesn't","isn't","aren't"], ans:1},
+  {q:"Are you good at acting? No, I'm ___.", qar:"هل أنت جيد في التمثيل؟ لا، أنا ___.", opts:["not","no","don't","isn't"], ans:0},
+  {q:"Which activity is done SITTING DOWN?", qar:"أي نشاط يُمارَس وأنت جالس؟", opts:["play tag","play ice hockey","play chess","play badminton"], ans:2},
+  {q:"'skip' with -ing becomes:", qar:"كلمة 'skip' مع ing تصبح:", opts:["skiping","skipping","skiping","skippping"], ans:1},
+  {q:"'ride' with -ing becomes:", qar:"كلمة 'ride' مع ing تصبح:", opts:["rideing","riding","ridding","rides"], ans:1},
+  {q:"What does the prefix 'un-' mean?", qar:"ماذا يعني السابقة 'un-'؟", opts:["again","before","not/opposite","too much"], ans:2},
+  {q:"What does the suffix '-er' mean?", qar:"ماذا تعني اللاحقة '-er'؟", opts:["without","full of","person who does","in a way"], ans:2},
+  {q:"The dragon dance is from:", qar:"رقصة التنين من:", opts:["Hungary","Brazil","Poland","China"], ans:3},
+  {q:"In Rio de Janeiro, old trams are ___ and new trams are grey.", qar:"في ريو دي جانيرو، الترام القديم ___ والجديد رمادي.", opts:["blue","green","yellow","red"], ans:2},
+  {q:"Nairobi is the capital city of:", qar:"نيروبي هي عاصمة:", opts:["Brazil","Kenya","Poland","Hungary"], ans:1},
+  {q:"A 'matatu' is a type of:", qar:"المَتاتو نوع من:", opts:["train","small bus","taxi","tram"], ans:1},
+  {q:"What is a 'boda boda'?", qar:"ما هو الـ 'boda boda'؟", opts:["a tram","a boat","a motorbike taxi","a chair lift"], ans:2},
+  {q:"Walter the elephant felt sad because:", qar:"شعر الفيل والتر بالحزن لأن:", opts:["he lost his mum","the animals didn't want to play with him","he couldn't find food","it was raining"], ans:1},
+  {q:"In the story 'The Red Kite', where did they find the kite?", qar:"في قصة 'الطائرة الورقية الحمراء'، أين وجدوا الطائرة الورقية؟", opts:["in the park","in the hotel","in the toy shop window","behind the supermarket"], ans:2},
+  {q:"Ethan from South Africa plays:", qar:"إيثان من جنوب أفريقيا يلعب:", opts:["chess","marbles","table tennis","Frisbee"], ans:1},
+  {q:"In Poland, Kasia plays a game using:", qar:"في بولندا، تلعب كاسيا لعبة باستخدام:", opts:["a ball","chalk and lines","cards","dominoes"], ans:1},
+  {q:"Which sentence is correct?", qar:"أي جملة صحيحة؟", opts:["She don't like skipping.","She doesn't likes skipping.","She doesn't like skipping.","She isn't like skipping."], ans:2},
+  {q:"Choose the correct question:", qar:"اختر السؤال الصحيح:", opts:["Is there any parks?","Are there a park?","Are there any parks?","Is there parks?"], ans:2},
+  {q:"'I'm good at baking' — what comes after 'good at'?", qar:"'أنا جيد في الخبز' — ماذا يأتي بعد good at؟", opts:["base verb","verb + s","verb + ing","to + verb"], ans:2},
+  {q:"Which word goes with 'play' to make a game?", qar:"أي كلمة تأتي مع 'play' لتشكيل لعبة؟", opts:["music","tag","gymnastics","judo"], ans:1},
+  {q:"'Are you good at painting?' → Yes, ___.", qar:"هل أنت جيد في الرسم؟ → نعم، ___.", opts:["I do","I am","I can","I like"], ans:1},
+  {q:"What prefix means 'again'?", qar:"أي سابقة تعني 'مرة أخرى'؟", opts:["un-","re-","pre-","dis-"], ans:1},
+  {q:"The suffix '-ful' means:", qar:"اللاحقة '-ful' تعني:", opts:["without","full of","person who does","not"], ans:1},
+  {q:"Which transport is found underground?", qar:"أي وسيلة نقل تسير تحت الأرض؟", opts:["tram","taxi","metro","chair lift"], ans:2},
+  {q:"'What's he doing?' — What tense is this?", qar:"'ماذا يفعل هو؟' — أي زمن هذا؟", opts:["Past Simple","Present Simple","Present Continuous","Future"], ans:2},
+  {q:"He's = ", qar:"He's = ", opts:["He was","He has","He is","He does"], ans:2},
+  {q:"Which word is an ANTONYM of 'happy'?", qar:"أي كلمة هي ضد كلمة 'happy'؟", opts:["joyful","sad","beautiful","pleased"], ans:1}
+];
+
+let userAnswers = new Array(50).fill(null);
+
+function buildQuiz() {
+  const container = document.getElementById('quizQuestions');
+  container.innerHTML = '';
+  quizData.forEach((q, i) => {
+    const card = document.createElement('div');
+    card.className = 'q-card';
+    card.id = `qcard${i}`;
+    card.innerHTML = `
+      <div class="q-num">Question ${i+1} of 50</div>
+      <div class="q-text">${q.q}</div>
+      <div class="q-ar">${q.qar}</div>
+      <div class="options" id="opts${i}">
+        ${q.opts.map((o,j)=>`<button class="option-btn" onclick="selectAnswer(${i},${j},this)">${String.fromCharCode(65+j)}) ${o}</button>`).join('')}
+      </div>
+    `;
+    container.appendChild(card);
+  });
+  updateProgress();
+}
+
+function selectAnswer(qi, optI, btn) {
+  document.querySelectorAll(`#opts${qi} .option-btn`).forEach(b => b.classList.remove('selected'));
+  btn.classList.add('selected');
+  userAnswers[qi] = optI;
+  updateProgress();
+}
+
+function updateProgress() {
+  const answered = userAnswers.filter(a => a !== null).length;
+  document.getElementById('quizProgress').style.width = (answered/50*100)+'%';
+  document.getElementById('quizStatus').textContent = `Answered: ${answered}/50 | تمت الإجابة: ${answered}/50`;
+}
+
+function submitQuiz() {
+  let score = 0;
+  quizData.forEach((q,i) => {
+    const btns = document.querySelectorAll(`#opts${i} .option-btn`);
+    btns.forEach((b,j) => {
+      b.disabled = true;
+      b.classList.remove('selected');
+      if (j === q.ans) b.classList.add('correct');
+      else if (j === userAnswers[i] && userAnswers[i] !== q.ans) b.classList.add('wrong');
+    });
+    if (userAnswers[i] === q.ans) score++;
+  });
+  const pct = Math.round(score/50*100);
+  document.getElementById('resultScore').textContent = score+'/50';
+  document.getElementById('resultPct').textContent = pct+'%';
+  let msg, msgAr, stars;
+  if (pct >= 90) { msg='🌟 Excellent! You are a star!'; msgAr='ممتاز! أنت نجم لامع!'; stars='⭐⭐⭐⭐⭐'; }
+  else if (pct >= 75) { msg='👏 Great job! Well done!'; msgAr='عمل رائع! أحسنت!'; stars='⭐⭐⭐⭐'; }
+  else if (pct >= 50) { msg='😊 Good effort! Keep practicing!'; msgAr='جهد جيد! استمر في التدريب!'; stars='⭐⭐⭐'; }
+  else { msg='📚 Keep studying! You can do it!'; msgAr='استمر في الدراسة! أنت تستطيع!'; stars='⭐⭐'; }
+  document.getElementById('resultMsg').textContent = msg;
+  document.getElementById('resultMsgAr').textContent = msgAr;
+  document.getElementById('resultStars').innerHTML = stars.split('').map(s=>`<span class="star">${s}</span>`).join('');
+  const result = document.getElementById('quizResult');
+  result.style.display = 'block';
+  result.scrollIntoView({behavior:'smooth'});
+}
+
+function resetQuiz() {
+  userAnswers = new Array(50).fill(null);
+  document.getElementById('quizResult').style.display = 'none';
+  buildQuiz();
+  window.scrollTo({top: document.getElementById('quiz').offsetTop - 60, behavior:'smooth'});
+}
+
+// ======= CHALLENGE DATA =======
+const challenges = [
+  {
+    type:'🧩 Riddle',
+    q: "I have wheels but I'm not a car. I go on rails and carry many people. What am I?",
+    qar: "لدي عجلات لكنني لست سيارة. أسير على قضبان وأحمل كثيراً من الناس. ما أنا؟",
+    a: "A train (قطار)! Trains travel on rails and carry many passengers.",
+    aar: "القطار! يسير القطار على القضبان ويحمل عدداً كبيراً من الركاب."
+  },
+  {
+    type:'🔤 Word Puzzle',
+    q: "Rearrange these letters to make a place in town: L-A-T-I-P-S-O-H",
+    qar: "رتّب هذه الحروف لتشكيل مكان في المدينة: L-A-T-I-P-S-O-H",
+    a: "HOSPITAL (مستشفى) — A place where sick people are treated!",
+    aar: "HOSPITAL = مستشفى — المكان الذي يُعالَج فيه المرضى!"
+  },
+  {
+    type:'🤔 Think Deep',
+    q: "Keiko didn't want to go home even when they couldn't find the kite. What does this tell us about her character?",
+    qar: "كيكو لم ترد الذهاب للبيت حتى عندما لم يجدوا الطائرة الورقية. ماذا يخبرنا هذا عن شخصيتها؟",
+    a: "Keiko is determined and persistent — she never gives up! This shows perseverance and a strong character.",
+    aar: "كيكو شخصية مثابرة ولا تستسلم أبداً! هذا يُظهر قوة الإرادة والمثابرة."
+  },
+  {
+    type:'🎯 Scenario',
+    q: "You are lost in a new town. You need help, food, and a place to sleep. Name THREE places you should go and explain why.",
+    qar: "أنت ضائع في مدينة جديدة. تحتاج إلى مساعدة وطعام ومكان للنوم. اذكر ثلاثة أماكن يجب أن تذهب إليها واشرح لماذا.",
+    a: "1. Police Station — to get help from police officers. 2. Hotel — to find a safe place to sleep. 3. Supermarket — to buy food and drinks.",
+    aar: "1. مركز الشرطة — للحصول على المساعدة. 2. الفندق — للإقامة والنوم. 3. السوبرماركت — لشراء الطعام والشراب."
+  },
+  {
+    type:'🧠 Grammar Challenge',
+    q: "Correct all mistakes in this sentence: 'She don't likes playing the chess and he are good in juggling.'",
+    qar: "صحّح جميع الأخطاء في هذه الجملة: 'She don't likes playing the chess and he are good in juggling.'",
+    a: "Correct: 'She doesn't like playing chess and he is good AT juggling.' (3 errors: don't→doesn't, likes→like, are→is, in→at, remove 'the' before chess)",
+    aar: "الصحيح: 'She doesn't like playing chess and he is good at juggling.' الأخطاء: don't→doesn't، likes→like، are→is، in→at، وحذف 'the' قبل chess"
+  },
+  {
+    type:'🔍 Reasoning',
+    q: "Walter the elephant was too big and too noisy to play with small animals. But at the end, he found friends. What lesson does this teach us?",
+    qar: "الفيل والتر كان كبيراً جداً وصاخباً جداً للعب مع الحيوانات الصغيرة. لكنه في النهاية وجد أصدقاء. ما الدرس الذي نتعلمه؟",
+    a: "Everyone belongs somewhere! Being different doesn't mean you can't find friends who accept you. Being kind and sorry (like the monkeys) makes everyone welcome.",
+    aar: "كل شخص ينتمي لمكانه! الاختلاف لا يمنع إيجاد الأصدقاء. المسامحة والاعتذار (مثل القرود) تجعل الجميع مرحباً به."
+  },
+  {
+    type:'🌍 Culture Connect',
+    q: "The book talks about transport in Nairobi, Budapest, Rio de Janeiro and South Africa. What is ONE special type of transport each city has? Can you think of a unique transport in your city?",
+    qar: "الكتاب يتحدث عن النقل في نيروبي وبودابست وريو دي جانيرو وجنوب أفريقيا. ما نوع النقل الخاص بكل مدينة؟ هل تعرف وسيلة نقل مميزة في مدينتك؟",
+    a: "Nairobi: matatu (small bus) & boda boda (motorbike taxi). Budapest (Hungary): tram & chair lift. Rio (Brazil): metro & old yellow trams. Think about your own city!",
+    aar: "نيروبي: ماتاتو (حافلة صغيرة) وبودا بودا (تاكسي دراجة نارية). بودابست: الترام والكرسي الهوائي. ريو: المترو والترام الأصفر القديم. فكّر في مدينتك أنت!"
+  },
+  {
+    type:'🎲 Creative Challenge',
+    q: "Create 3 sentences describing a new imaginary town called 'Star Town'. Use: Is there a...?, Are there any...?, and It's between/next to...",
+    qar: "اكتب 3 جمل تصف مدينة خيالية جديدة اسمها 'Star Town'. استخدم: Is there a...?، Are there any...?، وIt's between/next to...",
+    a: "Example: 'Is there a supermarket in Star Town? Yes, there is! It is next to the hospital. Are there any parks? Yes, there are three beautiful parks between the school and the hotel!'",
+    aar: "مثال: 'هل يوجد سوبرماركت في ستار تاون؟ نعم يوجد! إنه بجانب المستشفى. هل يوجد أي حدائق؟ نعم، يوجد ثلاث حدائق جميلة بين المدرسة والفندق!'"
+  },
+  {
+    type:'🧩 Odd One Out',
+    q: "Which word does NOT belong and why? → car, van, lorry, school, motorbike",
+    qar: "أي كلمة لا تنتمي للمجموعة ولماذا؟ → car, van, lorry, school, motorbike",
+    a: "'school' — All the others are types of transport/vehicles. School is a place in town, not a vehicle!",
+    aar: "'school' — كل الكلمات الأخرى وسائل نقل/مركبات. المدرسة مكان في المدينة وليست مركبة!"
+  },
+  {
+    type:'🎤 Speaking Challenge',
+    q: "Describe what YOU are doing right now using Present Continuous, then say 3 things you like doing and 2 things you are good at!",
+    qar: "صف ما تفعله الآن باستخدام المضارع المستمر، ثم قل 3 أشياء تحبها و2 أشياء تجيدها!",
+    a: "Example: 'I am learning English right now! I like reading, playing football and watching TV. I am good at painting and playing chess!'",
+    aar: "مثال: 'أنا أتعلم الإنجليزية الآن! أحب القراءة وكرة القدم ومشاهدة التلفاز. أنا جيد في الرسم ولعب الشطرنج!'"
+  }
+];
+
+function buildChallenges() {
+  const container = document.getElementById('challengeCards');
+  challenges.forEach((c, i) => {
+    const card = document.createElement('div');
+    card.className = 'challenge-card';
+    card.innerHTML = `
+      <span class="challenge-num">${c.type} | Challenge ${i+1}</span>
+      <div class="challenge-q">${c.q}</div>
+      <div class="challenge-ar">${c.qar}</div>
+      <button class="reveal-btn" onclick="toggleAnswer(${i})">💡 Reveal Answer | اكشف الإجابة</button>
+      <div class="challenge-answer" id="cans${i}">
+        <strong>Answer | الإجابة:</strong><br>${c.a}
+        <div class="challenge-answer-ar">${c.aar}</div>
+      </div>
+    `;
+    container.appendChild(card);
+  });
+}
+
+function toggleAnswer(i) {
+  const el = document.getElementById('cans'+i);
+  el.classList.toggle('show');
+  const btn = el.previousElementSibling;
+  btn.textContent = el.classList.contains('show') ? '🙈 Hide Answer | إخفاء الإجابة' : '💡 Reveal Answer | اكشف الإجابة';
+}
+
+// ======= INIT =======
+buildQuiz();
+buildChallenges();
+</script>
+</body>
+</html>
